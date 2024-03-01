@@ -9,13 +9,10 @@ void setup() {
 
 void loop() {
   if (digitalRead(SW) == LOW) {
-
     ledState == HIGH ? ledState = LOW : ledState = HIGH;
-    while (!digitalRead(SW)); delay(500); 
+    while (digitalRead(SW) == LOW) delay(100);
     count++;
     Serial.println(count);
   }
-  {
-    digitalWrite(LED_BUILTIN, ledState);
-  }
+  digitalWrite(LED_BUILTIN, ledState);
 }
