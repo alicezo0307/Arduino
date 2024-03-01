@@ -1,20 +1,20 @@
 #define SW 2
-#define ledRed 13
+#define LED 13
+int count = 0;
+
 void setup() {
-  Serial.begin(9600);
-  Serial.println("Hello");
-  pinMode(ledRed, OUTPUT);
   pinMode(SW, INPUT);
+  pinMode(LED, OUTPUT);
+  Serial.begin(9600);
 }
 
 void loop() {
-  Serial.println(digitalRead(SW));
-  if (digitalRead(SW) == 0) {
-    digitalWrite(ledRed, 0);
-    Serial.println(digitalRead(SW));
-  }
-  else {
-    digitalWrite(ledRed, 1);
-    Serial.println(digitalRead(SW));
+  if(digitalRead(SW)==LOW){
+    digitalWrite(LED,1);
+    while(digitalRead(SW)==LOW) delay(100);;
+    count++;
+    Serial.println(count);
+  }else if(digitalRead(SW)==HIGH){
+    digitalWrite(LED,0);
   }
 }
