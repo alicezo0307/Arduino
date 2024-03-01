@@ -1,0 +1,21 @@
+#define SW 2
+int count = 0, ledState = 0;
+
+void setup() {
+  pinMode(SW, INPUT);
+  pinMode(LED_BUILTIN, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  if (digitalRead(SW) == LOW) {
+
+    ledState == HIGH ? ledState = LOW : ledState = HIGH;
+    while (!digitalRead(SW)); delay(500); 
+    count++;
+    Serial.println(count);
+  }
+  {
+    digitalWrite(LED_BUILTIN, ledState);
+  }
+}
