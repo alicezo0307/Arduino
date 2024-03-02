@@ -1,0 +1,29 @@
+#define red 13
+#define green 12
+#define yellow 11
+int toggleRed =LOW;
+int toggleGreen =LOW;
+void setup() {
+  pinMode(red, OUTPUT);
+  pinMode(green, OUTPUT);
+  pinMode(yellow, OUTPUT);
+  attachInterrupt(0,toggle_isrRed,RISING);
+  attachInterrupt(1,toggle_isrGreen,CHANGE);
+  Serial.begin(9600);
+  Serial.println("Hi");
+}
+
+void loop() {
+  digitalWrite(yellow, HIGH);
+  delay(2000);
+  digitalWrite(yellow,LOW );
+  delay(2000);
+}
+void toggle_isrGreen(){
+  toggleGreen = !toggleGreen;
+  digitalWrite(green,toggleGreen);
+}
+void toggle_isrRed(){
+  toggleRed = !toggleRed;
+  digitalWrite(red,toggleRed);
+}
