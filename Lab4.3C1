@@ -1,0 +1,48 @@
+#define timeInterval 1000 //short and long press
+#define sw 2
+#define green_led 9
+#define red_led 8
+long time_press=0;
+int PressTime,ReleaseTime,red=0,green=0;
+void setup()
+{
+  pinMode(sw,INPUT);
+  pinMode(red_led,OUTPUT);
+  pinMode(green_led,OUTPUT);
+  Serial.begin(9600);
+}
+void loop() {
+  ReleaseTime=0;
+  if(digitalRead(sw)==0)
+  {
+    PressTime= millis();
+    while(digitalRead(sw)==0);
+    {
+      time_press =ReleaseTime;
+      ReleaseTime = millis()-PressTime;
+      if(time_press!=ReleaseTime)
+      {
+        Serial.println(ReleaseTime/1000);
+      }
+    }
+    ReleaseTime=millis()-PressTime;
+    PressTime=0;
+  }
+  if(ReleaseTime!=0)
+  {
+    if(ReleaseTime>=timeInterval)
+    {
+      green= ~green;
+      digitalWrite(green_led,green);
+      while(ReleaseTime>=timeInterval);
+      Serial.println("long press detect");
+    }
+    if(ReleaseTime<timeInterval)
+    {
+      red= ~red;
+      digitalWrite(red_led,red);
+      Serial.println("short press detect");
+    }
+ 
+  }
+}
